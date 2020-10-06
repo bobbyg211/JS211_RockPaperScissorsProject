@@ -16,7 +16,9 @@ const rockPaperScissors = (hand1, hand2) => {
   hand1 = hand1.toLowerCase().trim();
   hand2 = hand2.toLowerCase().trim();
 
-  if (
+  if (hand1 === "" || hand2 === "") {
+    return "Someone didn't play! Let's start over.";
+  } else if (
     (hand1 === "rock" && hand2 === "scissors") ||
     (hand1 === "paper" && hand2 === "rock") ||
     (hand1 === "scissors" && hand2 === "paper")
@@ -65,6 +67,28 @@ if (typeof describe === "function") {
       assert.equal(rockPaperScissors("rOcK", " paper "), "Hand two wins!");
       assert.equal(rockPaperScissors("Paper", "SCISSORS"), "Hand two wins!");
       assert.equal(rockPaperScissors("rock ", "sCiSsOrs"), "Hand one wins!");
+    });
+
+    // MY unit tests
+    it("user adds spaces before or after input", () => {
+      assert.equal(rockPaperScissors("   rock", "paper   "), "Hand two wins!");
+      assert.equal(rockPaperScissors("scissors ", "paper "), "Hand one wins!");
+      assert.equal(rockPaperScissors("paper   ", "   rock"), "Hand one wins!");
+    });
+
+    it("user hits ENTER before typing an input", () => {
+      assert.equal(
+        rockPaperScissors("", "paper"),
+        "Someone didn't play! Let's start over."
+      );
+      assert.equal(
+        rockPaperScissors("scissors", ""),
+        "Someone didn't play! Let's start over."
+      );
+      assert.equal(
+        rockPaperScissors("paper", " "),
+        "Someone didn't play! Let's start over."
+      );
     });
   });
 } else {
